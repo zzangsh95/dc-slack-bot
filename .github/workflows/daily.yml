@@ -8,10 +8,12 @@ on:
 jobs:
   run-bot:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: . # 루트 기준 설정
 
     steps:
       - uses: actions/checkout@v3
-
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
@@ -19,10 +21,8 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps chromium
-
       - name: Run bot
         run: npx tsx dc-slack-bot.ts
         env:
