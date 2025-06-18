@@ -2,14 +2,16 @@ name: Run DC Slack Bot Every Hour
 
 on:
   schedule:
-    - cron: "0 * * * *"
-  workflow_dispatch:
+    - cron: "0 * * * *" # 매 정각마다 실행 (UTC 기준, 한국은 +9시간)
+  workflow_dispatch: # 수동 실행도 가능
 
 jobs:
   run-bot:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
 
       - name: Setup Node
         uses: actions/setup-node@v3
@@ -17,12 +19,15 @@ jobs:
           node-version: 18
 
       - name: Install dependencies
+        working-directory: ./dc-slack-bot
         run: npm install
 
       - name: Install Playwright Browsers
+        working-directory: ./dc-slack-bot
         run: npx playwright install --with-deps chromium
 
       - name: Run bot
+        working-directory: ./dc-slack-bot
         run: npx tsx dc-slack-bot.ts
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
