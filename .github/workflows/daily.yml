@@ -8,7 +8,6 @@ on:
 jobs:
   run-bot:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -19,15 +18,15 @@ jobs:
           node-version: 18
 
       - name: Install dependencies
-        working-directory: ./dc-slack-bot
+        working-directory: dc-slack-bot
         run: npm install
 
       - name: Install Playwright Browsers
-        working-directory: ./dc-slack-bot
+        working-directory: dc-slack-bot
         run: npx playwright install --with-deps chromium
 
       - name: Run bot
-        working-directory: ./dc-slack-bot
+        working-directory: dc-slack-bot
         run: npx tsx dc-slack-bot.ts
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
