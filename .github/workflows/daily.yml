@@ -2,32 +2,29 @@ name: Run DC Slack Bot Every Hour
 
 on:
   schedule:
-    - cron: '0 * * * *'
+    - cron: "0 * * * *"
   workflow_dispatch:
 
 jobs:
   run-bot:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
+      - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
       - name: Install dependencies
-        working-directory: dc-slack-bot
         run: npm install
 
-      - name: Install Playwright browsers
-        working-directory: dc-slack-bot
+      - name: Install Playwright Browsers
         run: npx playwright install --with-deps chromium
 
-      - name: Run Slack bot
-        working-directory: dc-slack-bot
-        run: npx tsx dc-slack-bot.ts
+      - name: Run bot
+        run: npx tsx ./dc-slack-bot.ts
+        working-directory: ${{ github.workspace }}
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
