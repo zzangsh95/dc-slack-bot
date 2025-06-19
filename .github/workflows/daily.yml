@@ -1,6 +1,5 @@
 name: Run DC Slack Bot Every Hour
 
-
 on:
   schedule:
     - cron: "0 * * * *"
@@ -24,6 +23,12 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+
+      - name: Cache checked posts
+        uses: actions/cache@v3
+        with:
+          path: dc_checked.json
+          key: checked-posts-${{ runner.os }}
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps chromium
