@@ -29,6 +29,8 @@ jobs:
         with:
           path: dc_checked.json
           key: checked-posts-${{ runner.os }}
+          restore-keys: |
+            checked-posts-${{ runner.os }}-
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps chromium
