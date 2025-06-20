@@ -28,7 +28,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: dc_checked.json
-          key: checked-posts-${{ runner.os }}
+          key: checked-posts-${{ runner.os }}-${{ github.workflow }}
           restore-keys: |
             checked-posts-${{ runner.os }}-
 
