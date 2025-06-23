@@ -1,8 +1,8 @@
-name: Run DC Slack Bot Every Hour
+name: Run DC Slack Bot Every 2 Hours
 
 on:
   schedule:
-    - cron: "0 * * * *" # 매시 정각마다 실행
+    - cron: "0 */2 * * *" # 2시간마다 실행 (UTC 기준)
   workflow_dispatch:
     inputs:
       confirm:
@@ -25,9 +25,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: dc_checked.json
-          key: checked-posts-${{ runner.os }}-${{ github.workflow }}-${{ hashFiles('dc_checked.json') }}
+          key: checked-posts-${{ runner.os }}-${{ github.workflow }}
           restore-keys: |
-            checked-posts-${{ runner.os }}-${{ github.workflow }}-
+            checked-posts-${{ runner.os }}-
 
       - name: Install dependencies
         run: npm install
@@ -36,6 +36,6 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Run bot
-        run: npx tsx ./dc-slack-bot.ts
+        run: npm run start
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
