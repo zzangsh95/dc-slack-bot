@@ -90,7 +90,7 @@ async function crawlAndNotify() {
 
     for (const post of newPosts) {
       sentSet.add(post.no);
-      await sendToSlack(`[${name}] ${post.title}\n${post.link}`);
+      await sendToSlack(`[${name}] ${post.title}\n\n${post.link}`);
       console.log(`✅ 슬랙 전송: ${post.title}`);
     }
 
