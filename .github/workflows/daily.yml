@@ -25,9 +25,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: dc_checked.json
-          key: checked-posts-${{ runner.os }}-${{ github.workflow }}
+          key: checked-posts
           restore-keys: |
-            checked-posts-${{ runner.os }}-
+            checked-posts
 
       - name: Install dependencies
         run: npm install
