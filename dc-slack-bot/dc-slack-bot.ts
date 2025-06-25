@@ -90,7 +90,7 @@ async function crawlAndNotify() {
 
     for (const post of newPosts) {
       sentSet.add(post.no);
-      await sendToSlack(`[${name}] ${post.title}\n🔗 ${post.link}`);
+      await sendToSlack(`[${name}] ${post.title} 🔗 ${post.link}`);
       console.log(`✅ 슬랙 전송: ${post.title}`);
     }
 
@@ -105,3 +105,8 @@ async function crawlAndNotify() {
 }
 
 await crawlAndNotify();
+
+// 깃 올릴때
+// git add .
+// git commit -m "내용"
+// git push origin main

@@ -39,3 +39,4 @@ jobs:
         run: npm run start
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+# 깃 올릴때  git add . // git commit -m "내용" // git push origin main
